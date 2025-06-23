@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Container, Row, Col, Card, Button, Spinner, Alert } from 'react-bootstrap';
-import { Collection, PersonCircle, Heart, HeartFill, Image as ImageIcon } from 'react-bootstrap-icons';
+import { Collection, PersonCircle, Heart, HeartFill } from 'react-bootstrap-icons';
 import { useFavoritesStore, type FavoritePhoto } from '../store/FavoritesStore';
 
 interface Photo {

@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Container, Card, Spinner, Alert, Button } from 'react-bootstrap';
-import { PersonCircle, Heart, HeartFill, FileEarmarkText } from 'react-bootstrap-icons';
+import { Container, Card, Spinner, Alert} from 'react-bootstrap';
+import { PersonCircle, FileEarmarkText } from 'react-bootstrap-icons';
 import { useFavoritesStore, type FavoritePost } from '../store/FavoritesStore';
 
 interface Post {

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Container, Card, Button, Row, Col } from 'react-bootstrap';
 import { Image, FileEarmarkText, Trash } from 'react-bootstrap-icons';
 import { useFavoritesStore } from '../store/FavoritesStore';
