@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Container, Card, Spinner, Alert} from 'react-bootstrap';
 import { PersonCircle, FileEarmarkText } from 'react-bootstrap-icons';
-import { useFavoritesStore, type FavoritePost } from '../store/FavoritesStore';
 
 interface Post {
   userId: number;
@@ -32,26 +31,6 @@ const PostPage = () => {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-
-  const { posts: favoritePosts, addPostToFavorites, removePostFromFavorites } = useFavoritesStore();
-  const isFavorite = favoritePosts.some(p => p.id === Number(postId));
-
-  const handleToggleFavorite = () => {
-    if (!post || !user) return;
-
-    const favoritePost: FavoritePost = {
-      userId: user.id,
-      id: post.id,
-      title: post.title,
-      body: post.body
-    };
-
-    if (isFavorite) {
-      removePostFromFavorites(post.id);
-    } else {
-      addPostToFavorites(favoritePost);
-    }
-  };
 
   useEffect(() => {
     const fetchPostDetails = async () => {
