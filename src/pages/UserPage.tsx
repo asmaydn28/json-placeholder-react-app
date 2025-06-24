@@ -50,24 +50,31 @@ const UserPage = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const fetchData = async (url: string, key: keyof typeof loading, setter: (data: any) => void) => {
+    setUser(null);
+    setPosts([]);
+    setAlbums([]);
+    setTodos([]);
+    setLoading({ user: true, posts: true, albums: true, todos: true });
+    setError(null);
+
+    const fetchData = async <T,>(url: string, key: keyof typeof loading, setter: (data: T) => void) => {
       try {
         const response = await fetch(url);
-        if (!response.ok) throw new Error(`Failed to fetch ${key}`);
-        const data = await response.json();
+        if (!response.ok) throw new Error(`${key} verisi alınamadı`);
+        const data: T = await response.json();
         setter(data);
       } catch (err) {
-        setError(err instanceof Error ? err.message : `An unknown error occurred while fetching ${key}.`);
+        setError(err instanceof Error ? err.message : `${key} verisi alınırken bilinmeyen bir hata oluştu.`);
       } finally {
         setLoading(prev => ({ ...prev, [key]: false }));
       }
     };
 
     if (userId) {
-      fetchData(`https://jsonplaceholder.typicode.com/users/${userId}`, 'user', setUser);
-      fetchData(`https://jsonplaceholder.typicode.com/users/${userId}/posts`, 'posts', setPosts);
-      fetchData(`https://jsonplaceholder.typicode.com/users/${userId}/albums`, 'albums', setAlbums);
-      fetchData(`https://jsonplaceholder.typicode.com/users/${userId}/todos`, 'todos', setTodos);
+      fetchData<User>(`https://jsonplaceholder.typicode.com/users/${userId}`, 'user', setUser);
+      fetchData<Post[]>(`https://jsonplaceholder.typicode.com/users/${userId}/posts`, 'posts', setPosts);
+      fetchData<Album[]>(`https://jsonplaceholder.typicode.com/users/${userId}/albums`, 'albums', setAlbums);
+      fetchData<Todo[]>(`https://jsonplaceholder.typicode.com/users/${userId}/todos`, 'todos', setTodos);
     }
   }, [userId]);
 
